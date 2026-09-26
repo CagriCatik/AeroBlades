@@ -13,10 +13,14 @@ This guide details the precise slicer settings, orientation strategies, and dime
 
 Most aircraft STL files in this repository are solid or hollow geometries designed to be sliced with specific perimeter and infill combinations:
 
-```
-[Exterior Airflow Surface: 1-2 Smooth Perimeters]
-  └── [Internal Volume: 3% - 6% Gyroid Infill Core (Isotropic 3D Truss)]
-        └── [Structural Spine: Continuous Carbon Fiber Tube Sockets]
+```mermaid
+graph TD
+    SHELL["<b>Outer Aerodynamic Shell</b><br/>1–2 Smooth Perimeters (PLA+ / Tough PLA)"]
+    CORE["<b>Internal 3D Gyroid Core</b><br/>3% – 6% Isotropic Truss Infill (Torsional Resistance)"]
+    SPAR["<b>Continuous Carbon Fiber Spine</b><br/>6.0mm / 8.0mm Pultruded Carbon Tube (Bending Load)"]
+
+    SHELL --- CORE
+    CORE --- SPAR
 ```
 
 ### Why Gyroid Infill?

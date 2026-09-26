@@ -13,20 +13,18 @@ This guide provides the complete mathematical framework, component selection cri
 
 ## 1. The 5-Step Powertrain Sizing Algorithm
 
-```
-[ Step 1: Estimate All-Up-Weight (AUW) ]
-                  │
-                  ▼
-[ Step 2: Determine Required Thrust & T:W Ratio ]
-                  │
-                  ▼
-[ Step 3: Select Propeller (Diameter & Pitch Speed) ]
-                  │
-                  ▼
-[ Step 4: Select Motor (Stator Volume & KV for Voltage) ]
-                  │
-                  ▼
-[ Step 5: Size ESC (Amperage Headroom) & Battery (LiPo vs Li-ion) ]
+```mermaid
+flowchart TD
+    Step1["Step 1: Estimate All-Up-Weight (AUW)<br/><i>(Airframe + Spars + Electronics + Battery)</i>"]
+    Step2["Step 2: Determine Required Thrust & T:W Ratio<br/><i>(Cruising: 0.3:1 | Hand Launch: 1.0:1 | VTOL: 2.2:1)</i>"]
+    Step3["Step 3: Select Propeller<br/><i>(Diameter for Static Thrust | Pitch for Top Speed)</i>"]
+    Step4["Step 4: Select Motor<br/><i>(Stator Volume for Torque | KV matched to Voltage)</i>"]
+    Step5["Step 5: Size ESC & Battery<br/><i>(ESC +30% Headroom | High-C LiPo vs 21700 Li-ion)</i>"]
+
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Step5
 ```
 
 ### Step 1: Calculate Target All-Up-Weight (AUW)
@@ -105,16 +103,18 @@ $$\text{Loaded RPM} \approx \text{Battery Nominal Voltage} \times \text{Motor KV
 * **Low-ESR Capacitor**: Solder a 35V/50V 470µF–1000µF Low-ESR capacitor (Panasonic FR or Rubycon ZLH) directly at the ESC battery pads to suppress back-EMF spikes.
 
 #### B. Battery Chemistry Decision Tree: LiPo vs. Li-ion
-```
-Does the aircraft require > 30A burst or hover vertically?
-├── YES ──► Use High-C LiPo (100C - 150C)
-│            ↳ Urumi (VTOL hover: 70A-90A total)
-│            ↳ Sabre (Twin tractor high-G carving)
-└── NO  ──► Is flight endurance > 30 minutes the primary goal?
-             ├── YES ──► Use 21700 Li-ion Pack (Molicel P45B or P42A)
-             │            ↳ Rifter 3, Sica (Cruise draw: 4A - 7A)
-             └── NO  ──► Use 18650 Li-ion Pack (Sony VTC6 or Samsung 30Q)
-                          ↳ Mini Rifter, Scimitar 3
+
+```mermaid
+flowchart TD
+    Q1{"Does the aircraft require > 30A burst<br/>or vertical hover?"}
+    
+    Q1 -- "YES" --> LIPO["<b>High-C LiPo (100C - 150C)</b><br/>• Urumi (VTOL hover: 70A-90A)<br/>• Sabre (Twin high-speed carving)"]
+    
+    Q1 -- "NO" --> Q2{"Is flight endurance > 30 min<br/>the primary goal?"}
+    
+    Q2 -- "YES" --> LIION21700["<b>21700 Li-ion Pack (Molicel P45B / P42A)</b><br/>• Rifter 3 (50-70 min cruise)<br/>• Sica (60-90 min heavy cruise)"]
+    
+    Q2 -- "NO" --> LIION18650["<b>18650 Li-ion Pack (Sony VTC6 / Samsung 30Q)</b><br/>• Mini Rifter (35-45 min park flyer)<br/>• Scimitar 3 (Compact wing)"]
 ```
 
 ---

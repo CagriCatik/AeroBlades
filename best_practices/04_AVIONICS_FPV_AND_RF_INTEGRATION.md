@@ -28,12 +28,16 @@ This guide provides proven avionics integration and RF separation standards for 
 
 The internal digital magnetometer (compass) measures Earth's tiny magnetic field (~0.5 Gauss). Any high-current DC wire passing nearby acts as an electromagnet ($B \propto I / r$), causing severe compass deflection whenever throttle is applied.
 
-```
-       [ 🧭 GPS / Compass Module ]
-                   ▲
-                   │  MINIMUM 60mm - 80mm CLEARANCE
-                   ▼
-[ 🔋 Battery ] ── [ ⚡ ESC / PDB ] ── [ ⚙️ High-Current Motor Phase Wires ]
+```mermaid
+flowchart TD
+    GPS["🧭 <b>GPS & Digital Magnetometer (Compass)</b><br/>(Mounted on top boom, elevated fairing, or rear mast)"]
+    
+    subgraph HIGH_EMI["⚠️ High-Current EMI Zone"]
+        direction LR
+        BAT["🔋 Battery Leads"] <--> ESC["⚡ ESC / PDB Traces"] <--> MOT["⚙️ Motor Phase Wires"]
+    end
+    
+    GPS <-.->|"<b>MINIMUM 60mm – 80mm CLEARANCE</b><br/>(Prevents Magnetic Field Deflection)"| HIGH_EMI
 ```
 
 ### Essential Rules for Compass Placement:
@@ -64,12 +68,11 @@ Modern digital FPV systems generate crystal-clear HD video, but they introduce t
 
 ExpressLRS (ELRS 2.4GHz / 868-915MHz) and TBS Crossfire provide extraordinary range, but antenna placement dictates link quality:
 
-```
-[ 🎥 FPV Camera ] ─── [ 📡 VTX Antenna (Rear / Wingtip) ]
-                                ▲
-                                │  MINIMUM 80mm - 120mm AIR GAP
-                                ▼
-                       [ 📶 RC Receiver T-Antenna (Vertical) ]
+```mermaid
+flowchart LR
+    CAM["🎥 FPV Camera<br/>(Fuselage Nose)"] --- VTX["📡 5.8GHz VTX Antenna<br/>(Rear Boom or Wingtip)"]
+    
+    VTX <-.->|"<b>MINIMUM 80mm – 120mm AIR GAP</b><br/>(Prevents Receiver Front-End De-sensing)"| RX["📶 RC Receiver T-Antenna<br/>(Vertical Polarization)"]
 ```
 
 ### Optimal Antenna Layout:

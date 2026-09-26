@@ -58,6 +58,22 @@ A common misconception in 3D-printed aviation is that **lighter is always better
 
 ## 4. Component-by-Component Material Assignment Matrix
 
+```mermaid
+flowchart TD
+    Part["Aircraft Component Slicing Decision"]
+    
+    Part --> IsHinge{"Is it a flexible<br/>control surface hinge?"}
+    IsHinge -- "YES" --> TPU["<b>TPU 95A (100% Solid)</b><br/>Tear-proof, zero-play flex hinge"]
+    
+    IsHinge -- "NO" --> IsStress{"Is it high stress / motor heat?<br/>(Motor mount, wing lock, skid)"}
+    IsStress -- "YES" --> PETG["<b>PETG or Solid ASA (100%)</b><br/>Impact resistant, 85°C+ heat limit, no creep"]
+    
+    IsStress -- "NO" --> IsCover{"Is it an upper canopy,<br/>hatch or sun cover?"}
+    IsCover -- "YES" --> ASA["<b>Aero ASA / LW-ASA</b><br/>50% weight savings, 100°C UV & sun immune"]
+    
+    IsCover -- "NO" --> WING["<b>PLA+ / Tough PLA</b><br/>1 Wall + 4% Gyroid, high torsional stiffness"]
+```
+
 Use this authoritative assignment matrix when slicing parts across any **AeroBlades** aircraft:
 
 | Subsystem Component | Primary Recommended Material | Alternative Option | Strict Rule / Avoidance |
