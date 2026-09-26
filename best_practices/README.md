@@ -18,6 +18,7 @@ Whether you are printing your first **Mini Rifter**, assembling a high-speed twi
 | **02. 3D Printing & Slicing Setup** | Slicer optimization, tolerances & bed adhesion | How does the thin-wall gyroid truss system work? How do I account for carbon spar hole shrinkage? | [Read Guide](02_3D_PRINTING_AND_SLICER_SETUP.md) |
 | **03. Electronics, Propulsion & Power** | Motors, ESCs, LiPo vs Li-ion batteries | What stator size and KV for pusher vs twin tractor? When should I use 21700 Li-ion cells vs high-C LiPos? | [Read Guide](03_ELECTRONICS_PROPULSION_AND_POWER.md) |
 | **04. Avionics, FPV & RF Integration** | Flight controllers, INAV, GPS hygiene, FPV | How far must GPS be from DJI O3? How do I prevent compass magnetic interference from motor lines? | [Read Guide](04_AVIONICS_FPV_AND_RF_INTEGRATION.md) |
+| **05. References & Authoritative Sources** | Industry benchmarks, citations & manufacturer TDS | What testing proves active-foaming strength reduction? What are Mooch's verified 21700 cell ratings? | [Read Guide](05_REFERENCES_AND_CITATIONS.md) |
 
 ---
 

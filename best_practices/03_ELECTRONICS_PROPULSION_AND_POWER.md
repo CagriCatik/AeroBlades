@@ -69,3 +69,12 @@ Selecting and wiring the propulsion and power systems for 3D-printed aircraft re
 * **BEC Power Routing**:
   * Never power multiple digital metal-gear servos (e.g., Emax ES08MDII) directly from the flight controller's internal 5V 1A BEC. 
   * Use a dedicated external **5V/6V 3A–5A switching BEC** for the servo rail to prevent flight controller brownouts in flight.
+
+---
+
+## 5. 📚 Authoritative References & Citations
+
+1. **Battery Mooch**: *"Molicel P42A and P45B 21700 Benchmarks & Continuous Discharge Ratings"* — Independent laboratory testing verifying 45A CDR, internal resistance, and voltage sag characteristics. [[Mooch's Test Blog](https://www.e-cigarette-forum.com/forum/blog-entry/list-of-battery-tests.7436/)]
+2. **Oscar Liang**: *"Why Capacitors Are Important For FPV Drones: Voltage Spikes and Filtering"* — Explains inductive back-EMF, low-ESR requirements, and Panasonic FM/FR and Rubycon ZLH capacitor sizing. [[Oscar Liang](https://oscarliang.com/capacitors-mini-quad/)]
+3. **Oscar Liang**: *"Motor Size, Stator Dimensions, and KV Explained"* — Comprehensive tutorial on motor stator volume, torque vs RPM, and propeller matching. [[Oscar Liang](https://oscarliang.com/motors/)]
+4. **AM32 / BLHeli_32 Architecture Documentation**: *"Sinusoidal Startup and Variable PWM Frequency for Fixed-Wing Efficiency"* — Multi-rotor and fixed-wing ESC commutation optimization. [[AM32 GitHub](https://github.com/AlkaMotors/AM32-MultiRotor-ESC-firmware)]

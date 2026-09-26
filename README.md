@@ -330,6 +330,7 @@ For comprehensive engineering standards across materials, 3D printing parameters
 * 🖨️ [**02: 3D Printing & Slicer Setup**](best_practices/02_3D_PRINTING_AND_SLICER_SETUP.md) — The thin-wall Gyroid internal truss philosophy, hole shrinkage compensation, and bed adhesion.
 * ⚡ [**03: Electronics, Propulsion & Power**](best_practices/03_ELECTRONICS_PROPULSION_AND_POWER.md) — Motor stator & KV sizing, counter-rotating twins, ESC capacitor filtering, and LiPo vs 21700 Li-ion batteries.
 * 📡 [**04: Avionics, FPV & RF Integration**](best_practices/04_AVIONICS_FPV_AND_RF_INTEGRATION.md) — Flight controller soft-mounting, GPS/Compass EMI isolation, DJI O3 cooling/dampening, and ELRS antenna layout.
+* 📖 [**05: References, Citations & Authoritative Sources**](best_practices/05_REFERENCES_AND_CITATIONS.md) — Empirical research (CNC Kitchen, Mooch), manufacturer TDS (colorFabb, Polymaker), and protocol documentation (ELRS, INAV).
 
 ---
 
@@ -344,6 +345,7 @@ AeroBlades/
 │   ├── 02_3D_PRINTING_AND_SLICER_SETUP.md     # Gyroid truss infill, spar tolerances, bed adhesion
 │   ├── 03_ELECTRONICS_PROPULSION_AND_POWER.md # Motor/ESC sizing, LiPo vs Li-ion, capacitor filtering
 │   ├── 04_AVIONICS_FPV_AND_RF_INTEGRATION.md  # INAV, GPS hygiene, digital FPV, antenna separation
+│   ├── 05_REFERENCES_AND_CITATIONS.md         # Citations, CNC Kitchen tests, Mooch battery tests, TDS
 │   └── README.md                              # Best practices index & 5 Golden Rules
 │
 ├── 📂 projects/                               # All 7 standardized aircraft & hardware projects

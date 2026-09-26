@@ -102,3 +102,13 @@ Use this authoritative assignment matrix when slicing parts across any **AeroBla
 * **Pre-Foamed PLA**: Polymaker PolyLite Light Weight PLA (no active foaming, prints with standard PLA settings).
 * **PETG**: Bambu Lab PETG-CF, eSun PETG, Prusament PETG.
 * **TPU**: Overture TPU 95A, Polymaker PolyFlex TPU95-HF, Bambu TPU 95A.
+
+---
+
+## 7. 📚 Authoritative References & Citations
+
+1. **CNC Kitchen (Stefan Hermann)**: *"Testing Foaming Filaments: Mass Savings vs. Mechanical Strength"* — Demonstrates tensile capacity and inter-layer bond reduction in active-foaming LW materials. [[CNC Kitchen](https://www.cnckitchen.com/)]
+2. **colorFabb Technical Documentation**: *"colorFabb LW-ASA Printing Guidelines"* — Expansion ratios, foaming temperature thresholds (230°C–260°C), and flow rate reduction curves. [[colorFabb Learn](https://learn.colorfabb.com/)]
+3. **colorFabb Technical Documentation**: *"colorFabb LW-PLA Technical Guide"* — Slicing single-wall aerodynamic shells with zero retraction. [[colorFabb LW-PLA](https://learn.colorfabb.com/how-to-print-with-lw-pla/)]
+4. **Polymaker**: *"PolyLite Light Weight PLA Technical Data Sheet"* — Fixed micro-balloon pre-foaming vs active chemical foaming mechanical comparison. [[Polymaker TDS](https://polymaker.com/)]
+5. **Olivier_C**: *"Rifter, Sabre, Scimitar: mini-sized FPV cruisers"* — Airframe structural test logs and Bambu P1P print profiles. [[RCGroups Thread #4223695](https://www.rcgroups.com/forums/showthread.php?4223695-Rifter-Sabre-Scimitar-mini-sized-FPV-cruisers)]

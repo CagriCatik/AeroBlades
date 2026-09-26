@@ -100,3 +100,12 @@ Before launching any AeroBlades aircraft:
 4. **Program Automatic Return-to-Home (RTH)**:
    * Set RTH altitude at least 30m above local trees/terrain.
    * Configure failsafe action to **RTH** instead of immediate drop.
+
+---
+
+## 6. 📚 Authoritative References & Citations
+
+1. **ExpressLRS Documentation**: *"Antenna Orientation, Polarization, and Placement Best Practices"* — Outlines linear polarization alignment, diversity orthogonal placement, and conductive carbon standoff rules. [[ExpressLRS Docs](https://www.expresslrs.org/)]
+2. **ArduPilot Documentation**: *"Compass Setup and Advanced Magnetic Interference Mitigation (CompassMot)"* — Physics of magnetic field deflection from high-current motor traces ($B \propto I / r$). [[ArduPilot Docs](https://ardupilot.org/copter/docs/common-compass-setup-advanced.html)]
+3. **INAV Documentation**: *"Fixed-Wing Autolaunch, PIFF Tuning, and Safe Return-to-Home"* — Technical wiki for fixed-wing PID controller tuning and emergency recovery logic. [[INAV Wiki](https://github.com/iNavFlight/inav/wiki)]
+4. **Oscar Liang**: *"FPV Drone Antenna Placement Rules & Signal Degradation"* — Radiation patterns of dipole antennas and polarization loss factors. [[Oscar Liang](https://oscarliang.com/)]

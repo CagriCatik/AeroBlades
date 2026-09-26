@@ -90,3 +90,12 @@ Many fuselage and wing segments stand **180mm to 240mm tall** on the build plate
   * Use aerosol activator sparingly to set alignment pins instantly.
 * **Polyurethane / Epoxy for Spars**:
   * For permanently bonded carbon spars, use **5-minute or 15-minute 2-part epoxy**. Epoxy fills micro-voids between the round spar and printed internal ribs without melting the plastic.
+
+---
+
+## 6. 📚 Authoritative References & Citations
+
+1. **Bambu Lab / OrcaSlicer Documentation**: *"X-Y Hole & Contour Compensation"* — Technical documentation on compensating for polymer shrinkage and inner perimeter facet contraction. [[OrcaSlicer Wiki](https://github.com/SoftFever/OrcaSlicer/wiki)]
+2. **CNC Kitchen (Stefan Hermann)**: *"Carbon Fiber Tube Reinforcement in 3D-Printed Wings"* — Load deflection analysis showing how structural carbon tubes absorb bending loads while printed plastic handles airfoil shape. [[CNC Kitchen](https://www.cnckitchen.com/)]
+3. **Prusa Research**: *"Print Quality & Seam Placement Guide"* — Managing alignment seams on aerodynamic curved shells to minimize drag. [[Prusa Knowledge Base](https://help.prusa3d.com/)]
+4. **Olivier_C**: *"Rifter, Sabre, Scimitar CAD release logs"* — Origin of the 3%–6% Gyroid structural infill profile specifications. [[RCGroups Thread #4223695](https://www.rcgroups.com/forums/showthread.php?4223695-Rifter-Sabre-Scimitar-mini-sized-FPV-cruisers)]
