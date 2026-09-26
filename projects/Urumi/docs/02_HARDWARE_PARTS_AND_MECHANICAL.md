@@ -106,10 +106,10 @@ Unlike earlier prototypes where wings had to be glued permanently to the fuselag
 * **558 grams out of 571 grams total plastic (97.7%) is printed in standard PLA / PLA+!**
 * **Only the two small canopies (`Canopy 1` = 8g and `Canopy 2` = 5g, total 13g) were originally sliced for Foaming LW-PLA.**
 
-```
-Total Plastic Weight: ~571g
-├── PLA+ / PLA Basic (Airframe, Wings, Mounts, Nacelles, Plates): 558g (97.7%)
-└── Foaming LW-PLA / ASA-Aero (Only Canopies 1 & 2):               13g (2.3%)
+```mermaid
+pie title Urumi Printed Plastic Distribution (571g Total)
+    "PLA+ / PLA Basic (Wings, Fuselage, Mounts, Plates)" : 558
+    "Aero ASA / LW-PLA (Canopies 1 & 2 Only)" : 13
 ```
 
 ### 5.2 Mechanical Evaluation for Bambu Lab P1S

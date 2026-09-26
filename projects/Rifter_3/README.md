@@ -32,6 +32,32 @@
 | **Battery Compatibility** | 4S 18650 / 21700 Li-ion packs (up to 4000–5000mAh) or 4S LiPo | Long range endurance |
 | **FPV System Support** | Analog, Walksnail, DJI O3, GPS mast mount | SCM nose & dedicated GPS plate |
 
+```mermaid
+graph TD
+    subgraph FUSELAGE["Fuselage Structure (01_Fuselage/)"]
+        F1["Fuselage 1 (Nose / SCM)"] --- F2["Fuselage 2 (Bulkhead)"]
+        F2 --- F3["Fuselage 3 (Main Cabin)"]
+        F3 --- F4["Fuselage 4 (Mid Section)"]
+        F4 --- F5["Fuselage 5 (Tail Cone)"]
+    end
+
+    subgraph WINGS["Wing Panels (02_Wings/)"]
+        W["Wings 1–4 (L/R)"] --- AIL["Ailerons (L/R)"]
+        W --- WL["Wing Locks"]
+    end
+
+    subgraph TAIL["V-Tail Assembly (03_Tail_and_Stabs/)"]
+        VTAIL["V-Tail Stabilizers (L/R)"]
+        MOTOR["Pusher Motor Mount (2806.5)"]
+    end
+
+    F3 ===|Main Spar: 8.0mm × 800mm| W
+    F4 ===|Rear Spar: 6.0mm × 400mm| W
+    F3 -.-|Optional Stiffeners: 2× 6×135mm| F4
+    F5 --- TAIL
+    F3 --- CANOPY["<b>05_Canopy/</b><br/>Canopy + Snap Lock"]
+```
+
 ---
 
 ## 🖨️ 3D Printing Bill of Materials (ODS Data)

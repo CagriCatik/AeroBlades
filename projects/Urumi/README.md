@@ -35,6 +35,36 @@
 | **Camera Mechanism** | 9g Servo Tilting Mount | 90° (hover) → 45° (transition) → 0° (forward cruise) |
 | **Carbon Spars Required** | **4x** 6.0 mm × 284 mm | Forms rigid central X-frame |
 
+```mermaid
+graph TD
+    subgraph FUSELAGE["Fuselage Core (01_Fuselage/)"]
+        F1["Fuselage 1 (Tilting Camera Nose)"] --- F2["Fuselage 2 (Battery Bay)"]
+        F2 --- F3["Fuselage 3 (Central X-Frame Hub)"]
+        F3 --- F4["Fuselage 4 (Rear Fin & FC Bay)"]
+    end
+
+    subgraph XFRAME["Central X-Frame Carbon Structure"]
+        SPAR["4× 6.0mm × 284mm Carbon Tubes"]
+    end
+
+    subgraph QUAD_WINGS["Quad Dihedral Wings (02_Wings/)"]
+        W1["Wing 1 (Top Left, 22°)"]
+        W2["Wing 2 (Top Right, 22°)"]
+        W3["Wing 3 (Bottom Left, 22°)"]
+        W4["Wing 4 (Bottom Right, 22°)"]
+    end
+
+    subgraph PROPULSION["Nacelles & Mounts (03_Nacelles_and_Mounts/)"]
+        N["Nacelles 1–4"] --- M["Motor Mounts 1–4 (Solid)"]
+        N --- P["Landing Pads 1–4"]
+    end
+
+    F3 === XFRAME
+    XFRAME === QUAD_WINGS
+    QUAD_WINGS === PROPULSION
+    F2 --- CANOPY["<b>05_Canopy/</b><br/>Canopies 1 & 2 + Locks"]
+```
+
 ---
 
 ## 🖨️ 3D Printing Bill of Materials (ODS Data)

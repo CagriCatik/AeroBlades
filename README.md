@@ -39,6 +39,26 @@
 
 ## 📊 Master Fleet Comparison Matrix
 
+```mermaid
+graph TD
+    FLEET["⚔️ <b>AeroBlades 3D-Printed Fleet</b><br/><i>(Designed by Olivier_C)</i>"]
+    
+    FLEET --> PUSHER["<b>Single Pusher Cruisers</b>"]
+    FLEET --> TWIN["<b>Twin Tractor Cruisers</b>"]
+    FLEET --> VTOL["<b>Hybrid VTOL Systems</b>"]
+    FLEET --> COMMON["<b>Hardware Ecosystem</b>"]
+    
+    PUSHER --> MR["🛩️ <b>Mini Rifter</b> (314g)<br/>Ultra-compact park cruiser"]
+    PUSHER --> R3["🛩️ <b>Rifter 3</b> (430g)<br/>Long-endurance V-tail glider"]
+    PUSHER --> SC3["🦅 <b>Scimitar 3</b> (438g)<br/>Swept acrobatic wing"]
+    
+    TWIN --> SAB["🗡️ <b>Sabre</b> (476g)<br/>High-speed carving plank (120+ km/h)"]
+    TWIN --> SIC["⚔️ <b>Sica</b> (746g)<br/>Flagship heavy twin (COB LEDs)"]
+    
+    VTOL --> URU["🛸 <b>Urumi</b> (571g)<br/>Quad-motor tailsitter VTOL"]
+    COMMON --> COM["📦 <b>Common Hardware</b><br/>SCM mounts, DJI O3 cages, locks"]
+```
+
 | Aircraft | Category | Propulsion | Plastic Wt. | Print Time | Carbon Spars | Controls | Best Suited For | Files / Project |
 | :--- | :--- | :--- | :---: | :---: | :--- | :--- | :--- | :---: |
 | [**Urumi**](#1-urumi-experimental-hybrid-vtol--quadplane) | Hybrid VTOL | Quad Motor (4× 2207–2806, 7" props) | **571 g** | 26h 30m | 4× 6×284mm | Differential Thrust (No control surfaces) | Vertical takeoff/landing, hover-to-cruise transition | [📂 `projects/Urumi/`](projects/Urumi/) |

@@ -61,6 +61,24 @@ Assign a 3-position switch on your RC transmitter (e.g. Channel 8 / Aux 4):
 | **Position 2 (Mid)** | **Mixer Profile 2** (Multirotor) | **45°** (Intermediate) | **Acceleration & Transition**: The aircraft remains under quadcopter control, but the camera tilts to 45°. Push the pitch stick forward to build airspeed to 70–80 km/h while maintaining clear horizon sight. |
 | **Position 3 (Low)** | **Mixer Profile 1** (Wing Mode) | **0°** (Forward View) | **Forward Aeroplane Flight**: Switch active. Wings produce lift; fly using combined roll and yaw differential thrust. |
 
+```mermaid
+stateDiagram-v2
+    [*] --> HOVER_MODE: Arm in Switch Pos 1
+    HOVER_MODE: <b>Vertical Hover (Multirotor Profile 2)</b><br/>Camera Tilt: 90° Down<br/>Vertical Take-off & Climb
+    
+    HOVER_MODE --> TRANSITION: Pitch Forward & Switch to Pos 2
+    TRANSITION: <b>Acceleration (Multirotor Profile 2)</b><br/>Camera Tilt: 45°<br/>Build forward airspeed to 70–80 km/h
+    
+    TRANSITION --> WING_CRUISE: Switch to Pos 3 (Airspeed > 70 km/h)
+    WING_CRUISE: <b>Aeroplane Cruise (Wing Profile 1)</b><br/>Camera Tilt: 0° Forward<br/>Wings carry lift; differential thrust steering
+    
+    WING_CRUISE --> DECEL: Switch to Pos 2 & Throttle Back
+    DECEL: <b>Deceleration & Flare</b><br/>Airspeed drops below 30 km/h
+    
+    DECEL --> HOVER_MODE: Switch to Pos 1
+    HOVER_MODE --> [*]: Vertical Spot Landing on Rear Pads & Disarm
+```
+
 ---
 
 ## 4. Piloting Dynamics & Handling Insights

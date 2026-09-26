@@ -27,9 +27,15 @@
 
 ## 2. Airframe Assembly Sequence
 
-```
-Assembly Flow:
-[Fuselage 1-4 + Carbon Spars] ──> [Internal Plates & Tilt Servo] ──> [Modular Wings] ──> [Nacelles & Motors]
+```mermaid
+flowchart LR
+    S1["<b>Step 1: Fuselage & Spars</b><br/>Bond Fuselage 1-4 & insert 4× 6mm carbon spars"]
+    S2["<b>Step 2: Internal Trays</b><br/>Install FC plate, battery plate & camera tilt servo"]
+    S3["<b>Step 3: Modular Wings</b><br/>Slide Wings 1-4 onto spars with snap roots"]
+    S4["<b>Step 4: Nacelles & Motors</b><br/>Mount motor nacelles, motors & landing pads"]
+    S5["<b>Step 5: Wiring & Canopy</b><br/>Connect ESC/FC/DJI O3 & snap lock canopy"]
+
+    S1 --> S2 --> S3 --> S4 --> S5
 ```
 
 ### Step 1: Fuselage Alignment & Carbon Spar Insertion

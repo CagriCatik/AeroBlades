@@ -8,17 +8,26 @@
 
 To configure, test, and tune the electronics, use the following specialized software tools:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────────────┐
-│                               CONFIGURATION SOFTWARE SUITE                              │
-├──────────────────────────┬─────────────────────────────┬────────────────────────────────┤
-│ Subsystem                │ Primary Software Tool       │ Platform & Connection Type     │
-├──────────────────────────┼─────────────────────────────┼────────────────────────────────┤
-│ ESCs & Motor Rotation    │ ESC-Configurator / BLHeli32 │ Web (Chrome/Edge) or Win App   │
-│ Flight Controller & VTOL │ INAV Configurator (v7.x)    │ Desktop App (Win/Mac/Linux)    │
-│ Radio Receiver (ELRS)    │ ExpressLRS Configurator     │ Desktop App / Web (10.0.0.1)   │
-│ FPV System (DJI O3/O4)   │ DJI Assistant 2 (Consumer)  │ Desktop App (USB-C to Air Unit)│
-└──────────────────────────┴─────────────────────────────┴────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph PC["💻 Ground Station / Configuration Tools"]
+        SW1["<b>ESC-Configurator / BLHeli32</b><br/>(Motor Direction, 48kHz, Timing)"]
+        SW2["<b>INAV Configurator (v7.x)</b><br/>(Dual Mixer, VTOL, PIDs, RTH)"]
+        SW3["<b>ExpressLRS Configurator</b><br/>(Binding Phrase, Packet Rate)"]
+        SW4["<b>DJI Assistant 2</b><br/>(Activation, Firmware, MSP Canvas)"]
+    end
+
+    subgraph AIR["🛸 Urumi Onboard Avionics"]
+        ESC["4-in-1 ESC"]
+        FC["Flight Controller"]
+        RX["ELRS Receiver"]
+        VTX["DJI O3/O4 Air Unit"]
+    end
+
+    SW1 -.->|USB Passthrough| ESC
+    SW2 <--->|USB-C (VCP)| FC
+    SW3 <--->|WiFi / UART| RX
+    SW4 <--->|USB-C Direct| VTX
 ```
 
 ---
@@ -85,36 +94,23 @@ The core brain of the hybrid aircraft is managed entirely via **INAV Configurato
 
 ## 2. Complete Electronics Component Breakdown
 
-```
-                       +-----------------------------+
-                       |    Flight Battery (4S-6S)   |
-                       +--------------+--------------+
-                                      | (XT60)
-                                      v
-+-------------------------------------+-------------------------------------+
-|                     45A - 60A 4-in-1 ESC (Central Stack)                   |
-|  [Motor 1 Out]         [Motor 2 Out]         [Motor 3 Out]        [Motor 4 Out]
-+-------+---------------------+---------------------+---------------------+--+
-        |                     |                     |                     |
-        v (3 wires)           v (3 wires)           v (3 wires)           v (3 wires)
-   +----+-----+          +----+-----+          +----+-----+          +----+-----+
-   | Motor 1  |          | Motor 2  |          | Motor 3  |          | Motor 4  |
-   | (Top L)  |          | (Top R)  |          | (Bot L)  |          | (Bot R)  |
-   +----------+          +----------+          +----------+          +----------+
+```mermaid
+flowchart TD
+    BAT["🔋 <b>Flight Battery (4S–6S LiPo)</b>"] -->|XT60 Main Power| ESC["⚡ <b>45A–60A 4-in-1 ESC</b><br/>(Central Stack)"]
 
-                                      | (VBAT + Current + Telemetry)
-                                      v
-+-------------------------------------+-------------------------------------+
-|                      INAV Flight Controller (F405 / F722)                 |
-|                                                                           |
-|  • PWM S1-S4: ESC Motor Signals 1-4                                       |
-|  • PWM S5   : Camera Tilt Servo Signal (EMAX ES08MA II)                   |
-|  • UART1    : DJI O3 / O4 Air Unit (MSP DisplayPort OSD)                  |
-|  • UART2    : ExpressLRS 2.4GHz Receiver (CRSF Protocol)                  |
-|  • UART3    : GPS Module (U-blox SAM-M10Q @ 115200 baud)                 |
-|  • I2C1     : Compass (SCL / SDA for QMC5883L / IST8310)                  |
-|  • 5V / 9V  : High-power BEC for Camera, VTX, Servo, and GPS              |
-+---------------------------------------------------------------------------+
+    ESC -->|3-Phase Motor Power| M1["⚙️ <b>Motor 1</b> (Top L)"]
+    ESC -->|3-Phase Motor Power| M2["⚙️ <b>Motor 2</b> (Top R)"]
+    ESC -->|3-Phase Motor Power| M3["⚙️ <b>Motor 3</b> (Bot L)"]
+    ESC -->|3-Phase Motor Power| M4["⚙️ <b>Motor 4</b> (Bot R)"]
+
+    ESC -->|VBAT + Current + Telemetry| FC["🧠 <b>INAV Flight Controller (F405 / F722)</b>"]
+
+    FC -->|PWM S1-S4| ESC
+    FC -->|PWM S5| SERVO["📐 <b>Camera Tilt Servo</b><br/>(EMAX ES08MA II)"]
+    FC <-->|UART1 (MSP OSD)| FPV["🎥 <b>DJI O3 / O4 Air Unit</b><br/>(Digital HD Video)"]
+    FC <-->|UART2 (CRSF)| RX["📶 <b>ExpressLRS 2.4GHz Receiver</b>"]
+    FC <-->|UART3 (115200)| GPS["🧭 <b>GPS Module</b><br/>(U-blox SAM-M10Q)"]
+    FC <-->|I2C1 (SCL/SDA)| COMP["🧭 <b>Magnetometer Compass</b><br/>(QMC5883L / IST8310)"]
 ```
 
 ---

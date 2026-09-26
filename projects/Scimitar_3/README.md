@@ -32,6 +32,29 @@
 | **Battery Compatibility** | 4S 1500–2200mAh LiPo or 4S 18650 Li-ion pack | Central battery bay |
 | **FPV System Support** | Analog, Walksnail Avatar, DJI O3 Air Unit | SCM camera mount & O3 compatibility |
 
+```mermaid
+graph TD
+    subgraph FUSELAGE["Fuselage Body (01_Fuselage/)"]
+        F1["Fuselage 1 (SCM Camera Nose)"] --- F2["Fuselage 2 (Payload Bay)"]
+        F2 --- F3["Fuselage 3 (Motor Bulkhead)"]
+    end
+
+    subgraph WINGS["Swept Wing Panels (02_Wings/)"]
+        W1["Wing 1 (Root)"] --- W2["Wing 2 (Mid)"]
+        W2 --- W3["Wing 3 (Tip + Elevons)"]
+        W3 --- TIPS["Extended Wingtips (+25mm)"]
+    end
+
+    subgraph MOTOR["Propulsion (03_Motor_Mount/)"]
+        MOUNT["4mm Motor Mount (2207–2306)"]
+    end
+
+    F2 ===|Main Spar: 8.0mm × 750mm| W2
+    F2 ===|Front Spars: 2× 6.0mm × 150mm| W1
+    F3 --- MOUNT
+    F2 --- CANOPY["<b>05_Canopy/</b><br/>Canopy Front & Rear + Locks"]
+```
+
 ---
 
 ## 🖨️ 3D Printing Bill of Materials (ODS Data)

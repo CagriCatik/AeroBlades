@@ -32,6 +32,31 @@
 | **Battery Compatibility** | 4S 21700 4000–8000mAh Li-ion pack or large 4S LiPo | Massive central battery bay |
 | **FPV & Payload Support** | DJI O3 1-axis pan/tilt dome, HEQ G-Port gimbal, COB LEDs | Dedicated gimbal & O3 dome noses |
 
+```mermaid
+graph TD
+    subgraph FUSELAGE["Heavy Fuselage (01_Fuselage/)"]
+        F1["Fuselage 1 (Gimbal / O3 Dome Nose)"] --- F2["Fuselage 2 (Bulkhead)"]
+        F2 --- F3["Fuselage 3 (Avionics Bay)"]
+        F3 --- F4["Fuselage 4 (Battery Bay)"]
+        F4 --- F5["Fuselage 5 (Tail Sockets)"]
+    end
+
+    subgraph WINGS["4-Panel Wing Assembly (02_Wings/)"]
+        W["Wings 1–4 (L/R)"] --- AIL["Dual Ailerons (L/R)"]
+        W --- NAC["Twin Nacelles (CW+CCW Motors)"]
+    end
+
+    subgraph TAIL["Twin Rudder & Elevator (03_Tail_and_Nacelles/)"]
+        STAB["Twin Vertical Stabs 1 & 2"] --- RUD["Twin Rudders"]
+        STAB --- ELEV["Horizontal Elevator"]
+    end
+
+    F3 ===|Front Spar: 8.0mm × 1000mm| W
+    F4 ===|Rear Spar: 6.0mm × 700mm| W
+    F5 ===|Tail Spars: 2× 8.0mm × 330mm| STAB
+    F3 --- CANOPY["<b>05_Canopy/</b><br/>Front & Rear Canopies + Handles"]
+```
+
 ---
 
 ## 🖨️ 3D Printing Bill of Materials (ODS Data)

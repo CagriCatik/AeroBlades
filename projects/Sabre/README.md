@@ -32,6 +32,33 @@
 | **Battery Compatibility** | 4S 1500–2200mAh LiPo or 4S 18650 Li-ion pack | Ample central battery tray |
 | **FPV System Support** | GoPro / RunCam, DJI O3, Walksnail, Analog | Dedicated GoPro & SCM nose options |
 
+```mermaid
+graph TD
+    subgraph FUSELAGE["Fuselage Structure (01_Fuselage/)"]
+        F1["Fuselage 1 (GoPro / SCM Nose)"] --- F2["Fuselage 2 (Firewall)"]
+        F2 --- F3["Fuselage 3 (Payload Bay)"]
+        F3 --- F4["Fuselage 4 (Aft Body)"]
+    end
+
+    subgraph WINGS["Plank Wing Assembly (02_Wings/)"]
+        W["Wings 1–3 (L/R)"] --- ELEV["Elevons (L/R)"]
+        W --- SERVO["Embedded Servo Bays"]
+    end
+
+    subgraph NACELLES["Twin Propulsion (03_Nacelles_and_Mounts/)"]
+        N1["Left Nacelle (CW Motor)"]
+        N2["Right Nacelle (CCW Motor)"]
+        STAB["Twin Vertical Fins"]
+    end
+
+    F3 ===|Front Spar: 6.0mm × 680mm| W
+    F4 ===|Rear Spar: 6.0mm × 320mm| W
+    W --- N1
+    W --- N2
+    W --- STAB
+    F3 --- CANOPY["<b>05_Canopy/</b><br/>Canopy + Lock"]
+```
+
 ---
 
 ## 🖨️ 3D Printing Bill of Materials (ODS Data)

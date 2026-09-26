@@ -16,6 +16,21 @@
 
 ## 🧰 Modular Components Catalog
 
+```mermaid
+flowchart TD
+    ECO["<b>📦 Common Fleet Hardware Ecosystem</b>"]
+    
+    ECO --> LATCH["🔒 <b>01_Canopy_Spring_Locks/</b><br/>Tool-free snap latches (Locks 1 & 2)<br/><i>Fits all airframe canopies</i>"]
+    ECO --> O3["📹 <b>02_DJI_O3_Mounts/</b><br/>Vibration cage & ventilated heatsink mount<br/><i>Protects DJI O3 camera & VTX</i>"]
+    ECO --> SCM["🎥 <b>03_Standard_Camera_Mounts_SCM/</b><br/>Interchangeable camera blocks<br/><i>DJI O3, Walksnail, HDZero Micro</i>"]
+    ECO --> FC["⚡ <b>04_Universal_FC_Plates_and_Hardware/</b><br/>20×20, 25.5×25.5, 30.5×30.5 plates<br/><i>M3 knurl brass insert adapters</i>"]
+
+    LATCH -.-> PLANES["<b>Compatible Airframes:</b><br/>Mini Rifter • Rifter 3 • Sabre • Scimitar 3 • Sica • Urumi"]
+    O3 -.-> PLANES
+    SCM -.-> PLANES
+    FC -.-> PLANES
+```
+
 ### 1. 🔒 Canopy Spring Locks (`01_Canopy_Spring_Locks/`)
 * **`Canopy spring Lock 1.3mf` & `2.3mf`**: Standardized tool-free snap-latch mechanism used across canopies on all airframes.
 * **Print Settings**: 100% infill in durable PLA+ or PETG for spring flex resistance.
