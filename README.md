@@ -31,8 +31,9 @@
 8. [📦 Common Hardware Ecosystem](#-common-hardware-ecosystem) — SCM camera mounts, DJI O3 cages, canopy spring locks
 9. [🔩 Fleet-Wide Carbon Spar Procurement Matrix](#-fleet-wide-carbon-spar-procurement-matrix)
 10. [🖨️ Standardized Slicing Profiles Cheat Sheet](#-standardized-slicing-profiles-cheat-sheet)
-11. [📂 Repository Directory Structure](#-repository-directory-structure)
-12. [📌 Citation & Forum Thread](#-citation--forum-thread)
+11. [🛠️ Fleet Best Practices & Engineering Guides](#️-fleet-best-practices--engineering-guides)
+12. [📂 Repository Directory Structure](#-repository-directory-structure)
+13. [📌 Citation & Forum Thread](#-citation--forum-thread)
 
 ---
 
@@ -321,11 +322,29 @@ All models in this fleet are tuned for 0.4mm nozzles, 0.20mm layer heights, and 
 
 ---
 
+## 🛠️ Fleet Best Practices & Engineering Guides
+
+For comprehensive engineering standards across materials, 3D printing parameters, electronics, and avionics, refer to the dedicated [`best_practices/`](best_practices/) documentation suite:
+
+* 🧪 [**01: Material Selection & Filaments**](best_practices/01_MATERIALS_AND_FILAMENT_SELECTION.md) — Mechanical and thermal evaluation of PLA+, Aero ASA (LW-ASA), LW-PLA, PETG, and TPU 95A.
+* 🖨️ [**02: 3D Printing & Slicer Setup**](best_practices/02_3D_PRINTING_AND_SLICER_SETUP.md) — The thin-wall Gyroid internal truss philosophy, hole shrinkage compensation, and bed adhesion.
+* ⚡ [**03: Electronics, Propulsion & Power**](best_practices/03_ELECTRONICS_PROPULSION_AND_POWER.md) — Motor stator & KV sizing, counter-rotating twins, ESC capacitor filtering, and LiPo vs 21700 Li-ion batteries.
+* 📡 [**04: Avionics, FPV & RF Integration**](best_practices/04_AVIONICS_FPV_AND_RF_INTEGRATION.md) — Flight controller soft-mounting, GPS/Compass EMI isolation, DJI O3 cooling/dampening, and ELRS antenna layout.
+
+---
+
 ## 📂 Repository Directory Structure
 
 ```
 AeroBlades/
 ├── README.md                                  # AeroBlades Fleet Portal, Catalog & Master Guide (this file)
+│
+├── 📂 best_practices/                         # Engineering guides (Materials, Slicing, Electronics, FPV)
+│   ├── 01_MATERIALS_AND_FILAMENT_SELECTION.md # Deep dive: PLA+, Aero ASA, LW-PLA, PETG, TPU
+│   ├── 02_3D_PRINTING_AND_SLICER_SETUP.md     # Gyroid truss infill, spar tolerances, bed adhesion
+│   ├── 03_ELECTRONICS_PROPULSION_AND_POWER.md # Motor/ESC sizing, LiPo vs Li-ion, capacitor filtering
+│   ├── 04_AVIONICS_FPV_AND_RF_INTEGRATION.md  # INAV, GPS hygiene, digital FPV, antenna separation
+│   └── README.md                              # Best practices index & 5 Golden Rules
 │
 ├── 📂 projects/                               # All 7 standardized aircraft & hardware projects
 │   ├── Common/                                # Shared canopy locks, DJI O3 cages, SCM mounts
