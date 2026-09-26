@@ -1,80 +1,211 @@
-# ⚡ Guide 03: Electronics, Propulsion & Power Systems
+# ⚡ Guide 03: Powertrain Engineering Guide (Motor, Propeller, ESC & Battery)
 
 [![Guide](https://img.shields.io/badge/Guide-03-blue.svg)](#)
-[![Topic](https://img.shields.io/badge/Topic-Motors%20%7C%20ESCs%20%7C%20LiPo%20vs%20Li--ion-orange.svg)](#)
+[![Topic](https://img.shields.io/badge/Topic-Powertrain%20Sizing%20%7C%20Math%20%7C%20Recipes-orange.svg)](#)
 
-Selecting and wiring the propulsion and power systems for 3D-printed aircraft requires a disciplined balance between weight, electrical efficiency, and heat dissipation. Because 3D-printed airframes have lower thermal conductivity than open carbon quadcopter frames, electronic components must be correctly sized to avoid thermal saturation inside plastic bays.
+Designing the propulsion and electrical power system for a 3D-printed aircraft is an engineering chain: **Weight $\rightarrow$ Required Thrust $\rightarrow$ Propeller $\rightarrow$ Motor (Stator & KV) $\rightarrow$ ESC $\rightarrow$ Battery**.
 
----
+Because 3D-printed airframes have poor thermal dissipation compared to open carbon quadcopter frames, selecting under-sized motors or under-rated ESCs will cause thermal failure inside plastic bays. Conversely, over-sizing components adds unnecessary dead weight, increasing stall speed and ruining glide performance.
 
-## 1. Fleet Motor & Propeller Sizing Guide
-
-| Airframe | Propulsion Layout | Motor Stator Size | KV Range (3S / 4S) | Recommended Propeller | Thrust / AUW Ratio | Notes |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Mini Rifter** | Single Pusher | **1806 – 2204** | 2300–2600KV (3S)<br>1800–2000KV (4S) | 4" – 5" Bullnose / 2-blade | 1.8:1 | Ultra-quiet, low power draw (~8A cruise) |
-| **Rifter 3** | Single Pusher | **2207 – 2806.5**| 1700–1950KV (4S) | 6" – 7" Long-range 2-blade | 2.0:1 | High efficiency, low-RPM cruising |
-| **Sabre** | Twin Tractor | **1404 – 1806** (×2) | 2400–2800KV (4S) | 4" – 5" Counter-Rotating (CW+CCW) | 3.0+:1 | High-speed interceptor, torque-free launch |
-| **Scimitar 3** | Single Pusher | **2207 – 2306** | 1950–2400KV (4S) | 5" – 6" Tri-blade / 2-blade | 2.2:1 | Fast throttle response, acrobatic agility |
-| **Sica** | Heavy Twin Tractor | **2207 – 2806.5** (×2)| 1500–1800KV (4S/6S) | 6" – 7" Counter-Rotating (CW+CCW) | 2.5:1 | Heavy payload, gimbal & night flight cruiser |
-| **Urumi** | Quad VTOL | **2207 – 2806.5** (×4)| 1800–1950KV (4S) | 7" Low-pitch 2-blade / Tri-blade | 2.5:1 (Hover) | Differential thrust steering, high hover burst current |
-
-### Propeller Orientation Rules:
-* **Counter-Rotating Twins (Sabre & Sica)**:
-  Always configure twin tractor motors to rotate **Inward-Top** (left motor spins CW, right motor spins CCW when viewed from behind). This directs wash down over the wing root, reduces stall speed, and completely cancels motor gyroscopic torque during hand launches!
-* **Pusher Motor Thrust Angle**:
-  Ensure pusher motors are installed square to the fuselage thrust line. A 1°–2° upward thrust angle is built into the motor mounts to counter nose-down pitch when throttling up.
+This guide provides the complete mathematical framework, component selection criteria, and turnkey procurement recipes for the **AeroBlades** fleet.
 
 ---
 
-## 2. ESC Selection & Thermal Management
+## 1. The 5-Step Powertrain Sizing Algorithm
 
-* **ESC Firmware**: Use **AM32** or **BLHeli_32** ESCs with bi-directional DShot. They offer smooth sine-wave motor startup and efficient low-throttle cruising.
-* **Current Rating Headroom**:
-  * Always size ESCs with at least **30% continuous amperage headroom** above static bench tests. For example, if a 2207 motor draws 25A at full throttle, use a 35A–45A ESC.
-  * *Reason*: Inside enclosed 3D-printed fuselage bays, cooling airflow is lower than on open mini quads.
-* **Low-ESR Filter Capacitors**:
-  * **Mandatory**: Solder a 35V 470µF – 1000µF Low-ESR electrolytic capacitor (Rubycon ZLH or Panasonic FR) directly at the main battery input pads of the ESC/PDB.
-  * High-current motor braking and throttle bursts cause inductive voltage spikes that can permanently destroy delicate 5V/9V BECs and digital FPV transmitters (DJI O3 / Walksnail).
+```
+[ Step 1: Estimate All-Up-Weight (AUW) ]
+                  │
+                  ▼
+[ Step 2: Determine Required Thrust & T:W Ratio ]
+                  │
+                  ▼
+[ Step 3: Select Propeller (Diameter & Pitch Speed) ]
+                  │
+                  ▼
+[ Step 4: Select Motor (Stator Volume & KV for Voltage) ]
+                  │
+                  ▼
+[ Step 5: Size ESC (Amperage Headroom) & Battery (LiPo vs Li-ion) ]
+```
 
----
-
-## 3. Battery Chemistry: High-C LiPo vs. Li-ion Packs
-
-| Attribute | Standard LiPo (e.g. Tattu R-Line 4S 1500mAh) | Li-ion 18650 Pack (e.g. 4S1P Sony VTC6 3000mAh) | Li-ion 21700 Pack (e.g. 4S1P Molicel P45B 4500mAh) |
-| :--- | :---: | :---: | :---: |
-| **Energy Density** | Medium (~140 Wh/kg) | **High (~220 Wh/kg)** | **Very High (~250 Wh/kg)** |
-| **Discharge Capability (C-Rating)** | **Extreme (80C – 120C continuous)** | Low-Medium (10C – 15C / ~30A continuous) | Medium-High (10C – 15C / ~45A continuous) |
-| **Voltage Sag Under Load** | Minimal (< 0.2V per cell) | Noticeable (~0.4V – 0.6V per cell) | Low-Medium (~0.3V per cell) |
-| **Minimum Safe Cutoff Voltage**| 3.50 V / cell | **2.80 V / cell** | **2.80 V / cell** |
-| **Best Airframe Matches** | **Urumi (VTOL)**, **Sabre (High Speed)** | **Mini Rifter**, **Scimitar 3** | **Rifter 3**, **Sica (Long Range)** |
-
-### Battery Selection Strategy:
-1. **Choose LiPo for Urumi & Sabre**:
-   * **Urumi** draws 70A–90A total in hover and transition. Li-ion cells will sag below cutoff and trigger an immediate low-voltage shutdown. Use a 4S 1500–2200mAh 100C LiPo.
-   * **Sabre** reaches 130+ km/h; its twin motors require instant throttle punch.
-2. **Choose Li-ion for Rifter 3 & Sica**:
-   * Fixed-wing cruising requires very little power (typically 3A–7A at 50–65 km/h).
-   * A 4S1P 21700 pack (Molicel P42A or P45B) delivers **40 to 60+ minutes of continuous flight** in the same footprint as a 20-minute LiPo!
-   * ⚠️ *Important*: Configure your OSD and INAV low-battery alarm for Li-ion packs to **3.0V/cell** (12.0V on 4S) instead of standard LiPo 3.5V/cell.
+### Step 1: Calculate Target All-Up-Weight (AUW)
+$$\text{AUW} = \text{Plastic Print Weight} + \text{Carbon Spars} + \text{Electronics (FC, Servos, VTX, Cam, Rx)} + \text{Battery}$$
+* *Plastic Print Weights (from master tables)*: Mini Rifter (314g), Rifter 3 (430g), Sabre (476g), Scimitar 3 (438g), Sica (746g), Urumi (571g).
+* *Typical Fixed Electronics Payload*: ~120g – 180g (FC + 2–4 servos + DJI O3 + ELRS receiver + wiring).
+* *Battery Weight*:
+  * 4S 1500mAh 100C LiPo: ~180g – 200g
+  * 4S1P 18650 Li-ion pack: ~205g
+  * 4S1P 21700 Li-ion pack: ~295g – 310g
 
 ---
 
-## 4. Power Distribution & Wire Sizing (AWG)
-
-* **Main Battery Lead**:
-  * 1806–2204 setups (Mini Rifter): **16 AWG** with **XT30** or **XT60**.
-  * Twin / Heavy cruisers (Sabre, Sica, Urumi): **12 AWG or 14 AWG** with genuine **XT60**.
-* **Motor Phase Wires**:
-  * 1806–2207: **18 AWG – 20 AWG** multi-strand silicone wire.
-* **BEC Power Routing**:
-  * Never power multiple digital metal-gear servos (e.g., Emax ES08MDII) directly from the flight controller's internal 5V 1A BEC. 
-  * Use a dedicated external **5V/6V 3A–5A switching BEC** for the servo rail to prevent flight controller brownouts in flight.
+### Step 2: Determine Required Thrust & Thrust-to-Weight (T:W) Ratio
+Unlike multirotors (which require $T:W > 1.0$ simply to lift off the ground), a fixed-wing aircraft generates lift aerodynamically from its wings:
+* **Level Cruise**: Requires only **$0.2:1$ to $0.3:1$ thrust-to-weight** ratio.
+* **Hand Launch & Climb-Out**: Requires at least **$0.8:1$ to $1.2:1$**.
+* **High-Speed Carving & Vertical Climbs (Sabre)**: Target **$2.0:1$ to $3.0+:1$**.
+* **Hybrid VTOL Hover (Urumi)**: Requires **$2.0:1$ to $2.5:1$ minimum** total thrust across all 4 motors to maintain stable hover in wind and recover smoothly from transitions.
 
 ---
 
-## 5. 📚 Authoritative References & Citations
+### Step 3: Select Propeller (Diameter vs. Pitch)
+
+Propellers are defined by two numbers: **Diameter $\times$ Pitch** (e.g., $7 \times 4$ inches).
+
+#### A. Diameter (Disc Area = Static Thrust & Launch Punch)
+$$\text{Static Thrust} \propto D^3 \times P \times \text{RPM}^2$$
+* Larger diameter moves a larger mass of air at lower velocity, producing **higher efficiency (thrust-per-watt)** and easier hand launches.
+* *Constraint*: Physical airframe clearance (fuselage boom clearance on pushers, ground clearance on landing).
+
+#### B. Pitch (Pitch Speed = Top Airspeed)
+Pitch is the theoretical forward distance the propeller advances in one revolution.
+$$\text{Pitch Speed (km/h)} = \text{RPM} \times \text{Pitch (inches)} \times 0.001524$$
+
+* **Rule of Thumb**:
+  * Pitch speed must be at least **$1.5\times$ to $2.0\times$ the aircraft stall speed** ($V_{\text{stall}} \approx 30\text{--}40\text{ km/h}$).
+  * For efficient cruising: Use moderate pitch ($7\times4$ or $6\times4$).
+  * For high-speed planks (Sabre): Use high pitch-to-diameter ratio ($5\times5$ or $4\times4.5$).
+
+#### C. Number of Blades (2-Blade vs. 3-Blade)
+* **2-Blade Propellers (Recommended for Cruisers)**: Highest aerodynamic efficiency ($\eta \approx 75\%-82\%$). Less blade interference drag.
+* **3-Blade Propellers**: Used when diameter is constrained by fuselage geometry (e.g. Mini Rifter or Scimitar) to increase disc area within a compact diameter. Produces smoother video with lower vibration harmonics.
+
+---
+
+### Step 4: Motor Sizing (Stator Dimensions & KV)
+
+#### A. Stator Sizing (Torque Capacity)
+Brushless motor size is defined by stator width and height in millimeters (e.g., **2207** = 22mm diameter, 7mm height):
+* **1404 – 1806**: For light twin tractors (Sabre) or ultra-compact cruisers (Mini Rifter).
+* **2207 – 2306**: Standard FPV motor size. Excellent power-to-weight, high availability. Ideal for Mini Rifter, Scimitar 3, Urumi.
+* **2806.5 – 2807**: Heavy long-range motor. High iron volume, massive torque to swing large 7" props at low RPM without overheating. Ideal for Rifter 3, Sica, Urumi.
+
+#### B. Motor KV Calculation
+$\text{KV}$ is the theoretical RPM per Volt under zero load:
+$$\text{Loaded RPM} \approx \text{Battery Nominal Voltage} \times \text{Motor KV} \times 0.80$$
+
+| Battery Voltage | Target Propeller Size | Optimal KV Range | Typical Application |
+| :---: | :---: | :---: | :--- |
+| **3S (11.1V)** | 4" – 5" | **2300 – 2700 KV** | Mini Rifter (Park flyer) |
+| **4S (14.8V)** | 4" – 5" | **2400 – 2800 KV** | Sabre (High-speed twin) |
+| **4S (14.8V)** | 6" – 7" | **1700 – 1950 KV** | Rifter 3, Sica, Urumi (Standard efficiency) |
+| **6S (22.2V)** | 6" – 7" | **1200 – 1400 KV** | Sica (Heavy long-range cruise) |
+
+> 💡 **Why 4S/6S is More Efficient than 3S:**  
+> Power is $P = V \times I$. To deliver 300 Watts on 3S requires ~27 Amps. On 6S, it requires only ~13.5 Amps. Since resistive heat loss in motor windings and wires is $P_{\text{loss}} = I^2 R$, halving the current reduces resistive heat loss by **75%**!
+
+---
+
+### Step 5: ESC & Battery Selection
+
+#### A. ESC Amperage Sizing
+* **The 30% Headroom Rule**: Inside 3D-printed plastic fuselages, cooling airflow is limited. If static full throttle draws 25A on the bench, use a **35A to 45A ESC**.
+* **Firmware**: Use **AM32** or **BLHeli_32** with bi-directional DShot. Set PWM frequency to **24kHz or 48kHz** for smooth cruise and cooler running.
+* **Low-ESR Capacitor**: Solder a 35V/50V 470µF–1000µF Low-ESR capacitor (Panasonic FR or Rubycon ZLH) directly at the ESC battery pads to suppress back-EMF spikes.
+
+#### B. Battery Chemistry Decision Tree: LiPo vs. Li-ion
+```
+Does the aircraft require > 30A burst or hover vertically?
+├── YES ──► Use High-C LiPo (100C - 150C)
+│            ↳ Urumi (VTOL hover: 70A-90A total)
+│            ↳ Sabre (Twin tractor high-G carving)
+└── NO  ──► Is flight endurance > 30 minutes the primary goal?
+             ├── YES ──► Use 21700 Li-ion Pack (Molicel P45B or P42A)
+             │            ↳ Rifter 3, Sica (Cruise draw: 4A - 7A)
+             └── NO  ──► Use 18650 Li-ion Pack (Sony VTC6 or Samsung 30Q)
+                          ↳ Mini Rifter, Scimitar 3
+```
+
+---
+
+## 2. Complete Turnkey Powertrain Recipes by Airframe
+
+Here are flight-tested, off-the-shelf component combinations for each aircraft in the fleet:
+
+### 1. 🛩️ Mini Rifter (Ultra-Compact Cruiser)
+* **Goal**: Ultra-quiet, long endurance park flyer.
+* **Propulsion Layout**: Single rear pusher.
+* **Recommended Motor**: EMAX ECO II 2204 (1900KV on 4S) or 1806 (2300KV on 3S).
+* **Propeller**: Gemfan 5126 2-blade or HQProp 5x3x3 3-blade.
+* **ESC**: 25A – 30A BLHeli_S / AM32 slim wing ESC.
+* **Battery**:
+  * *Endurance Setup*: 3S1P or 4S1P 18650 Li-ion (Sony VTC6 3000mAh, ~205g) $\rightarrow$ **35–45 min flight time**.
+  * *Lightweight Setup*: 3S 1300mAh 60C LiPo (~120g) $\rightarrow$ **20 min flight time**.
+* **Cruising Current**: ~4.5A – 6A at 50 km/h.
+
+---
+
+### 2. 🛩️ Rifter 3 (High-Endurance V-Tail Cruiser)
+* **Goal**: 100km+ range, high aerodynamic glide ratio.
+* **Propulsion Layout**: Single rear pusher.
+* **Recommended Motor**: BrotherHobby Avenger 2806.5 (1700KV) or T-Motor F90 2806.5 (1950KV).
+* **Propeller**: APC 7x4E Thin Electric or Gemfan Flash 7040 2-blade.
+* **ESC**: 40A – 50A AM32 / BLHeli_32 with heatsink.
+* **Battery**: 4S1P 21700 Molicel P45B (4500mAh, ~305g) $\rightarrow$ **50–70 min flight time**.
+* **Cruising Current**: ~3.8A – 5.2A at 60 km/h.
+
+---
+
+### 3. 🗡️ Sabre (High-Speed Twin-Tractor Plank)
+* **Goal**: Blistering acceleration, 120+ km/h top speed, locked-in pitch.
+* **Propulsion Layout**: Twin forward tractors (Counter-Rotating: Left CW, Right CCW).
+* **Recommended Motors**: 2× T-Motor F1507 (2700KV) or 2× Flywoo 1404 (2750KV).
+* **Propellers**: 2× HQProp T5x3 or Gemfan 4024 (1× CW, 1× CCW).
+* **ESC**: 2× 25A–35A individual ESCs or a single 4-in-1 35A mini stack.
+* **Battery**: 4S 1500mAh – 2200mAh 100C LiPo (e.g., Tattu R-Line 4S 1500mAh, ~185g).
+* **Cruising Current**: ~7A – 9A total; Full Throttle: ~35A total.
+
+---
+
+### 4. 🦅 Scimitar 3 (Swept Flying Wing)
+* **Goal**: Aerobatic agility, carving turns, high climb rate.
+* **Propulsion Layout**: Single central pusher.
+* **Recommended Motor**: T-Motor Velox V3 2207 (1950KV on 4S) or 2306 (2400KV on 4S).
+* **Propeller**: Gemfan Hurricane 51466 Tri-blade or 6042 2-blade.
+* **ESC**: 35A – 45A BLHeli_32 / AM32.
+* **Battery**: 4S 1800mAh 100C LiPo or 4S1P 18650 Li-ion pack.
+* **Cruising Current**: ~5A – 7A at 65 km/h.
+
+---
+
+### 5. ⚔️ Sica (Heavy Flagship Twin Cruiser)
+* **Goal**: Maximum payload capacity, twin-camera FPV, night COB LED flights.
+* **Propulsion Layout**: Twin forward tractors (Counter-Rotating).
+* **Recommended Motors**: 2× BrotherHobby 2806.5 (1300KV on 6S or 1700KV on 4S).
+* **Propellers**: 2× APC 7x5E or 7040 Long Range (1× CW, 1× CCW).
+* **ESC**: 2× 45A AM32 / BLHeli_32 ESCs with 35V 1000µF Low-ESR capacitors.
+* **Battery**: 4S2P or 6S1P 21700 Molicel P45B pack (4500–9000mAh, ~600g) $\rightarrow$ **60–90 min flight time**.
+* **Cruising Current**: ~6A – 8A total at 65 km/h.
+
+---
+
+### 6. 🛸 Urumi (Experimental Hybrid VTOL Quadplane)
+* **Goal**: Vertical hover, hover-to-wing transition, no control surfaces.
+* **Propulsion Layout**: 4× Brushless motors (Quad X layout on 22° dihedral wings).
+* **Recommended Motors**: 4× BrotherHobby 2806.5 (1950KV on 4S) or T-Motor F80 Pro 2408 (1900KV).
+* **Propellers**: 4× Gemfan 7040 2-Blade or HQProp 7x4x3 3-Blade (2× CW, 2× CCW).
+* **ESC**: 4-in-1 55A–65A BLHeli_32 / AM32 ESC (e.g., SpeedyBee 55A 4-in-1).
+* **Battery**: 4S 1500mAh – 2200mAh 100C–150C LiPo (Tattu R-Line or CNHL Black Series).
+  * ⚠️ *Li-ion strictly prohibited*: Hover current draws 70A–90A total; Li-ion cells will instantly hit low-voltage cutoff.
+* **Flight Time**: 6–8 minutes total (mix of 1.5 min hover/transition + 5 min wing cruise).
+
+---
+
+## 3. Practical Wiring & Connector Standard
+
+| Current Level | Battery Connector | Main Wire Gauge | Motor Wire Gauge | Typical Use |
+| :--- | :---: | :---: | :---: | :--- |
+| **< 30A Continuous** | **XT30** | 16 AWG | 20 AWG | Mini Rifter (single motor) |
+| **30A – 60A Continuous** | **XT60** | 14 AWG | 18 AWG | Rifter 3, Scimitar 3, Sabre |
+| **60A – 120A Peak** | **XT60 / XT90** | 12 AWG | 16 AWG | Sica (Twin), Urumi (Quad VTOL) |
+
+---
+
+## 4. 📚 Authoritative References & Citations
 
 1. **Battery Mooch**: *"Molicel P42A and P45B 21700 Benchmarks & Continuous Discharge Ratings"* — Independent laboratory testing verifying 45A CDR, internal resistance, and voltage sag characteristics. [[Mooch's Test Blog](https://www.e-cigarette-forum.com/forum/blog-entry/list-of-battery-tests.7436/)]
 2. **Oscar Liang**: *"Why Capacitors Are Important For FPV Drones: Voltage Spikes and Filtering"* — Explains inductive back-EMF, low-ESR requirements, and Panasonic FM/FR and Rubycon ZLH capacitor sizing. [[Oscar Liang](https://oscarliang.com/capacitors-mini-quad/)]
 3. **Oscar Liang**: *"Motor Size, Stator Dimensions, and KV Explained"* — Comprehensive tutorial on motor stator volume, torque vs RPM, and propeller matching. [[Oscar Liang](https://oscarliang.com/motors/)]
 4. **AM32 / BLHeli_32 Architecture Documentation**: *"Sinusoidal Startup and Variable PWM Frequency for Fixed-Wing Efficiency"* — Multi-rotor and fixed-wing ESC commutation optimization. [[AM32 GitHub](https://github.com/AlkaMotors/AM32-MultiRotor-ESC-firmware)]
+5. **Olivier_C**: *"Rifter, Sabre, Scimitar, Urumi Flight Logs"* — Verified real-world thrust-to-weight, current draw, and propeller sizing logs. [[RCGroups Thread #4223695](https://www.rcgroups.com/forums/showthread.php?4223695-Rifter-Sabre-Scimitar-mini-sized-FPV-cruisers)]
